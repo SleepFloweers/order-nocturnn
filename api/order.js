@@ -71,9 +71,20 @@ export default async function handler(req, res) {
     await auth.getClient();
     const sheets = google.sheets({ version: "v4", auth });
 
-    /* ===== DISCORD ===== */
-    const picMention = PIC_MENTIONS[pic] || pic;
-    const embed = {
+    /* =====================
+           DISCORD EMBED
+        ===================== */
+        const fields = items.map((item) => ({
+          name: item.name,
+          value: `Qty: ${item.qty}
+    Harga: $${item.price.toLocaleString()}
+    Subtotal: $${(
+            item.qty * item.price
+          ).toLocaleString()}`,
+          inline: false,
+        }));
+    
+        const embed = {
           title: "🛒 ORDER BARU MASUK",
           color: 0x3b82f6,
           fields: [
@@ -90,6 +101,7 @@ export default async function handler(req, res) {
           content: `🔔 ${picMention} ada order baru!`,
           embeds: [embed],
         });
+    
 
     /* ===== GOOGLE SHEET ===== */
     const timestamp = new Date().toISOString();
