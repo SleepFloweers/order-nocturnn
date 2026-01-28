@@ -26,6 +26,12 @@ const auth = new google.auth.GoogleAuth({
 });
  
 const sheets = google.sheets({ version: "v4", auth });
+const fs = require("fs");
+
+console.log(
+  "Service Account exists:",
+  fs.existsSync(path.join(__dirname, "serviceaccount.json"))
+);
 
 /* =====================
    HANDLER
