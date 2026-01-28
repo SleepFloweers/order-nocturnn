@@ -56,7 +56,7 @@ app.post("/order", async (req, res) => {
         name: "👤 Customer",
         value: `**${customer}**`,
         inline: true
-      },
+      },  
       {
         name: "🧑‍💼 PIC",
         value: picMention,
