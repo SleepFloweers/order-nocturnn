@@ -28,7 +28,7 @@ exports.handler = async (event) => {
 
   const fields = items.map(item => ({
     name: item.name,
-    value: `Qty: ${item.qty}\nHarga: Rp${item.price.toLocaleString()}\nSubtotal: Rp${(item.qty * item.price).toLocaleString()}`,
+    value: `Qty: ${item.qty}\nHarga: $${item.price.toLocaleString()}\nSubtotal: $${(item.qty * item.price).toLocaleString()}`,
     inline: false
   }));
 
@@ -40,7 +40,7 @@ exports.handler = async (event) => {
       { name: "🧑‍💼 PIC", value: picMention, inline: true },
       { name: "📦 Detail Pesanan", value: " ", inline: false },
       ...fields,
-      { name: "💰 TOTAL", value: `**Rp${total.toLocaleString()}**`, inline: false }
+      { name: "💰 TOTAL", value: `**$${total.toLocaleString()}**`, inline: false }
     ]
   };
 
