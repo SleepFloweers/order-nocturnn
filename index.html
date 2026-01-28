@@ -468,7 +468,7 @@ function submitOrder(){
     return;
   }
 
-  fetch("api",{
+  fetch("/api/order",{
     method: "POST",
     headers: { "Content-Type":"application/json" },
     body: JSON.stringify({
