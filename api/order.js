@@ -72,35 +72,68 @@ export default async function handler(req, res) {
     const sheets = google.sheets({ version: "v4", auth });
 
     /* ===== DISCORD ===== */
-    const picMention = PIC_MENTIONS[pic] || pic;
-    const fields = items.map((item) => ({
-      name: item.name,
-      value: `Qty: ${item.qty}
-Harga: $${item.price.toLocaleString()}
-Subtotal: $${(
-        item.qty * item.price
-      ).toLocaleString()}`,
-      inline: false,
-    }));
+    const picMention = PIC_MENTIONS[pic] ?? pic ?? "-";
+
+    // pastiin items array
+    const safeItems = Array.isArray(items) ? items : [];
+
+    // Discord max 25 fields → batasi
+    const fields = safeItems.slice(0, 20).map((item, idx) => {
+      const qty = Number(item.qty) || 0;
+      const price = Number(item.price) || 0;
+      const subtotal = qty * price;
+
+      return {
+        name: `${idx + 1}. ${item.name || "Item"}`,
+        value:
+          `Qty: **${qty}**\n` +
+          `Harga: **$${price.toLocaleString()}**\n` +
+          `Subtotal: **$${subtotal.toLocaleString()}**`,
+        inline: false,
+      };
+    });
+
     const embed = {
       title: "🛒 ORDER BARU MASUK",
       color: 0x3b82f6,
       fields: [
-        { name: "👤 Customer", value: `**${customer}**`, inline: true },
-        { name: "🧑‍💼 PIC", value: picMention, inline: true },
-        { name: "📦 Detail Pesanan", value: " ", inline: false },
+        {
+          name: "👤 Customer",
+          value: customer ? `**${customer}**` : "-",
+          inline: true,
+        },
+        {
+          name: "🧑‍💼 PIC",
+          value: picMention,
+          inline: true,
+        },
+        {
+          name: "📦 Detail Pesanan",
+          value: "\u200B", // zero-width space (lebih aman dari " ")
+          inline: false,
+        },
         ...fields,
-        { name: "💰 TOTAL", value: `**$${total.toLocaleString()}**`, inline: false },
+        {
+          name: "💰 TOTAL",
+          value: `**$${Number(total || 0).toLocaleString()}**`,
+          inline: false,
+        },
       ],
     };
+
     await axios.post(
       WEBHOOK_URL,
       {
+        username: "Order Bot",
         content: `🔔 ${picMention} ada order baru!`,
         embeds: [embed],
       },
-      { timeout: 5000 }
+      {
+        timeout: 5000,
+        headers: { "Content-Type": "application/json" },
+      }
     );
+
 
     /* ===== GOOGLE SHEET ===== */
     const timestamp = new Date().toISOString();
