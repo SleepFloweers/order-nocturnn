@@ -39,9 +39,8 @@ const sheets = google.sheets({ version: "v4", auth });
 /* =====================
    HANDLER
 ===================== */
-export default async function handler(req, res) {
-
-  if (req.method !== "POST") {
+exports.handler = async (event) => {
+  if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
