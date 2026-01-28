@@ -71,37 +71,36 @@ export default async function handler(req, res) {
     await auth.getClient();
     const sheets = google.sheets({ version: "v4", auth });
 
-    /* =====================
-           DISCORD EMBED
-        ===================== */
-        const fields = items.map((item) => ({
-          name: item.name,
-          value: `Qty: ${item.qty}
-    Harga: $${item.price.toLocaleString()}
-    Subtotal: $${(
-            item.qty * item.price
-          ).toLocaleString()}`,
-          inline: false,
-        }));
-    
-        const embed = {
-          title: "🛒 ORDER BARU MASUK",
-          color: 0x3b82f6,
-          fields: [
-            { name: "👤 Customer", value: `**${customer}**`, inline: true },
-            { name: "🧑‍💼 PIC", value: picMention, inline: true },
-            { name: "📦 Detail Pesanan", value: " ", inline: false },
-            ...fields,
-            { name: "💰 TOTAL", value: `**$${total.toLocaleString()}**`, inline: false },
-          ],
-        };
-    
-        await axios.post(WEBHOOK_URL, {
-          username: "Order Bot",
-          content: `🔔 ${picMention} ada order baru!`,
-          embeds: [embed],
-        });
-    
+    /* ===== DISCORD ===== */
+    const picMention = PIC_MENTIONS[pic] || pic;
+    const fields = items.map((item) => ({
+      name: item.name,
+      value: `Qty: ${item.qty}
+Harga: $${item.price.toLocaleString()}
+Subtotal: $${(
+        item.qty * item.price
+      ).toLocaleString()}`,
+      inline: false,
+    }));
+    const embed = {
+      title: "🛒 ORDER BARU MASUK",
+      color: 0x3b82f6,
+      fields: [
+        { name: "👤 Customer", value: `**${customer}**`, inline: true },
+        { name: "🧑‍💼 PIC", value: picMention, inline: true },
+        { name: "📦 Detail Pesanan", value: " ", inline: false },
+        ...fields,
+        { name: "💰 TOTAL", value: `**$${total.toLocaleString()}**`, inline: false },
+      ],
+    };
+    await axios.post(
+      WEBHOOK_URL,
+      {
+        content: `🔔 ${picMention} ada order baru!`,
+        embeds: [embed],
+      },
+      { timeout: 5000 }
+    );
 
     /* ===== GOOGLE SHEET ===== */
     const timestamp = new Date().toISOString();
