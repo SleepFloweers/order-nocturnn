@@ -1,7 +1,7 @@
 
 const axios = require("axios");
 
-const WEBHOOK_URL = "YOUR_DISCORD_WEBHOOK_URL";
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1466090959438876768/0y68MWxLQqABnMP3-eRD3CWhsrvwqDArgspJCNFVtEc80znRxYTFCKI3SEFAdZQUtQq4";
 
 const PIC_MENTIONS = {
   Alexis: "<@794805864733081630>",
