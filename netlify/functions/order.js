@@ -3,34 +3,7 @@ const { google } = require("googleapis");
 const path = require("path");
 const GCP_CLIENT_EMAIL = "nocturn-noir@nocturn-noir.iam.gserviceaccount.com";
 
-const GCP_PRIVATE_KEY = `-----BEGIN PRIVATE KEY-----
-MIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQDo48D2wof/dBh2
-U7S9gJw2JRtnC7mz1CvPIfunBm92k0kijNdqtdNHq3QkYibhYAEWfeOerqIGMebf
-VBh/gOzZ5Yc3FFVtSP3c/jM2R6xuyZ1+Zey12ynthh46vf7sA6wswyQkjZ24ij4n
-PTOSS4WtH5wWMUXZEAlt2GoEWhsWkmOI7iusuNAaqoL0Bp/kueqx7ZiXoMYGeqay
-aJeIDiGRFayIsUr1kvZVSCn5AU6EBvW3VGMX086PNj3ObM0kx/fm8P9cZ8UJPFQn
-5FldQp+dfj3VqZCtq+7hOcjswuCWteEmqnjL32vY2wv1+rwx5rWuBX+pE1NzpYZi
-zA2xhaU9AgMBAAECgf8Nfnov0hW54ireBaZIqgBjIsNJCo+NW+iDQp9842KR/EwV
-3xNG8OzND6IrJC9x354whMWA7Eghvm0iLj09JhCTOjlwzOd7mD8dZEfospPLLONz
-RMnyakCDrWxoUESfvZa8VpJBi/MXk5WxBbAh9JOfnwqW6UP4JSBmvPi88nufUxUi
-3o4HLN/rD3sHGY5REQAtvdhObQXWjFI2XxxABfpPZV8j7sZeMI5X13OVtXoirmpD
-hmuwZ6f7970dGp94Og9z8FTdPw97edayPj/qmODJX5qyqVQV6s78k/MPiBbrVeRb
-Vq5c6zbo83HdGIzucPBjDSxARJLSB41A3EUFU2sCgYEA+vZja4zvLzn0teLdZ9eD
-5vELbF+PogwhGuuO/dypNb4jggxHXyGCv1oSMNBBn6+rc1xvmFThIQdiWd+wcDBp
-hIYx6vXgt3iYn2iaPWg9bZZqH1D3U/1R5YZFj2s9PHC5j8Ak1CW/tPSaQcKUzKKa
-+1YjmlaCcisUzW/99se1pjcCgYEA7ZB+0ydSf5+sCtNebUSgt50PyZgRNm8O41NY
-WEoqVj+NOx3+FKmHdbIw42sDpgKFyFYsZUSFKyED0UTdrDkepu20azcpbkr6NhcL
-wulIBgK81WB4QQ3ozpwxu2220wTDK5CQfqdGpbZAa5o/Jb12O9886Lsjul3MdMks
-nUcWFisCgYB7QiA6ZpHjJBfobXBI3DTQbHsr0xN8h3CLBD7KuGHzH1vZN6amNpM8
-4EQm7WINx/3xPukgbC/WRQYtFgxWTbDFghNqTzD7a6OqR3nZxyTEeifNEbsn6Tcc
-AAKSGh2NXeAFll2ARLoPakOJIMRsbUCpSPlbiDmxUS96ZxLY7eVtqQKBgQCEhqc5
-hCYxrBF9uIxkyHQf+i5kd8CibTIQ/t254yXbF3jiEck8HZbDwbQkKf7PDXk0WV5K
-3/6qILDQfWpsOTEwTkrnxM4ICSusIQ8enKThNYXCQx7Sq7/EAr57oKjs7ysxkmQJ
-Q6fVqeYmINY5Z4gdvltsOXmk7c6xF8kbtBxOIQKBgFmJMsWp9RXw1DRseTg/p5y5
-TJFdeBMtWSmOnEjVOG2TqvSi90a1uG26aw/HaFw5kUEikxCnc6XGg6f+bAvwq3/m
-4Kvf6QjsqHeZnPJjUikgknfGcTVDft+JOP4z+fLNFR724tBG1hQIF4b2n7zcog0P
-KATJ5CBpFt6WXPqGSx0w
------END PRIVATE KEY-----`;
+const GCP_PRIVATE_KEY = `-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQDo48D2wof/dBh2\nU7S9gJw2JRtnC7mz1CvPIfunBm92k0kijNdqtdNHq3QkYibhYAEWfeOerqIGMebf\nVBh/gOzZ5Yc3FFVtSP3c/jM2R6xuyZ1+Zey12ynthh46vf7sA6wswyQkjZ24ij4n\nPTOSS4WtH5wWMUXZEAlt2GoEWhsWkmOI7iusuNAaqoL0Bp/kueqx7ZiXoMYGeqay\naJeIDiGRFayIsUr1kvZVSCn5AU6EBvW3VGMX086PNj3ObM0kx/fm8P9cZ8UJPFQn\n5FldQp+dfj3VqZCtq+7hOcjswuCWteEmqnjL32vY2wv1+rwx5rWuBX+pE1NzpYZi\nzA2xhaU9AgMBAAECgf8Nfnov0hW54ireBaZIqgBjIsNJCo+NW+iDQp9842KR/EwV\n3xNG8OzND6IrJC9x354whMWA7Eghvm0iLj09JhCTOjlwzOd7mD8dZEfospPLLONz\nRMnyakCDrWxoUESfvZa8VpJBi/MXk5WxBbAh9JOfnwqW6UP4JSBmvPi88nufUxUi\n3o4HLN/rD3sHGY5REQAtvdhObQXWjFI2XxxABfpPZV8j7sZeMI5X13OVtXoirmpD\nhmuwZ6f7970dGp94Og9z8FTdPw97edayPj/qmODJX5qyqVQV6s78k/MPiBbrVeRb\nVq5c6zbo83HdGIzucPBjDSxARJLSB41A3EUFU2sCgYEA+vZja4zvLzn0teLdZ9eD\n5vELbF+PogwhGuuO/dypNb4jggxHXyGCv1oSMNBBn6+rc1xvmFThIQdiWd+wcDBp\nhIYx6vXgt3iYn2iaPWg9bZZqH1D3U/1R5YZFj2s9PHC5j8Ak1CW/tPSaQcKUzKKa\n+1YjmlaCcisUzW/99se1pjcCgYEA7ZB+0ydSf5+sCtNebUSgt50PyZgRNm8O41NY\nWEoqVj+NOx3+FKmHdbIw42sDpgKFyFYsZUSFKyED0UTdrDkepu20azcpbkr6NhcL\nwulIBgK81WB4QQ3ozpwxu2220wTDK5CQfqdGpbZAa5o/Jb12O9886Lsjul3MdMks\nnUcWFisCgYB7QiA6ZpHjJBfobXBI3DTQbHsr0xN8h3CLBD7KuGHzH1vZN6amNpM8\n4EQm7WINx/3xPukgbC/WRQYtFgxWTbDFghNqTzD7a6OqR3nZxyTEeifNEbsn6Tcc\nAAKSGh2NXeAFll2ARLoPakOJIMRsbUCpSPlbiDmxUS96ZxLY7eVtqQKBgQCEhqc5\nhCYxrBF9uIxkyHQf+i5kd8CibTIQ/t254yXbF3jiEck8HZbDwbQkKf7PDXk0WV5K\n3/6qILDQfWpsOTEwTkrnxM4ICSusIQ8enKThNYXCQx7Sq7/EAr57oKjs7ysxkmQJ\nQ6fVqeYmINY5Z4gdvltsOXmk7c6xF8kbtBxOIQKBgFmJMsWp9RXw1DRseTg/p5y5\nTJFdeBMtWSmOnEjVOG2TqvSi90a1uG26aw/HaFw5kUEikxCnc6XGg6f+bAvwq3/m\n4Kvf6QjsqHeZnPJjUikgknfGcTVDft+JOP4z+fLNFR724tBG1hQIF4b2n7zcog0P\nKATJ5CBpFt6WXPqGSx0w\n-----END PRIVATE KEY-----\n`;
 /* =====================
    CONFIG
 ===================== */
@@ -54,7 +27,7 @@ const PIC_MENTIONS = {
 const auth = new google.auth.GoogleAuth({
   credentials: {
     client_email: GCP_CLIENT_EMAIL,
-    private_key: GCP_PRIVATE_KEY,
+    private_key: GCP_PRIVATE_KEY.replace(/\\n/g, "\n"),
   },
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
