@@ -468,7 +468,7 @@ function submitOrder(){
     return;
   }
 
-  fetch("/.netlify/functions/order",{
+  fetch("api",{
     method: "POST",
     headers: { "Content-Type":"application/json" },
     body: JSON.stringify({
