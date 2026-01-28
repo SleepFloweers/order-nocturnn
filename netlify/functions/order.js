@@ -112,11 +112,15 @@ exports.handler = async (event) => {
         message: "Order berhasil dikirim & disimpan ke Google Spreadsheet",
       }),
     };
-  } catch (error) {
-    console.error("ERROR:", error);
+  }catch (error) {
+    console.error("ERROR FULL:", error);
+
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: "Terjadi kesalahan server" }),
+      body: JSON.stringify({
+        message: "Terjadi kesalahan server",
+        error: error.message,
+      }),
     };
   }
 };
