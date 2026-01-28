@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>NOCTURN NOIR Order System Loker </title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1329320136104087571/1466070303032475924/Red_and_Black_Illustrative_Wolf_Gaming_Logo.png?ex=697b67de&is=697a165e&hm=fb82f61ca249bab385d4300c729117fa219f22ae2b40242826b9198432bc873c& ">
+
+<style>
+
+.group-content{
+  display:none;
+  margin-top:10px;
+}
+
+.group-box.active .group-content{
+  display:block;
+}
+
+.group-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  background:#020617;
+  padding:10px 14px;
+  border-radius:10px;
+}
+
+.group-box.active .group-title span{
+  transform:rotate(180deg);
+}
+
+.group-title span{
+  transition:.3s;
+}
+
+
+  .group-title{
+  margin:18px 0 8px;
+  font-size:15px;
+  font-weight:600;
+  color:#60a5fa;
+}
+.scroll-area{
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-bottom: 10px;
+}
+
+.scroll-area::-webkit-scrollbar{
+  width:6px;
+}
+.scroll-area::-webkit-scrollbar-thumb{
+  background:#2563eb;
+  border-radius:10px;
+}
+.scroll-area::-webkit-scrollbar-track{
+  background:#020617;
+}
+
+.group-box{
+  margin-bottom:16px;
+}
+
+* { box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
+body{
+  min-height:100vh;
+  margin:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+
+  background-image: url("https://media.discordapp.net/attachments/1386767130451640361/1441179325302046861/image.png?ex=697b2916&is=6979d796&hm=c4b72edde5f114c791dedab2a68dbea766c1b676265acdcef86e7b3a9c45d99d&=&format=webp&quality=lossless&width=1606&height=904");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.card {
+  background:#111827;
+  width:100%;
+  max-width:460px;
+  padding:28px;
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+h1{text-align:center;margin-bottom:6px}
+p{text-align:center;color:#9ca3af;font-size:14px;margin-bottom:20px}
+label{font-size:13px;color:#d1d5db}
+input[type=text], select{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  background:#1f2933;
+  color:#fff;
+  margin-bottom:16px;
+}
+.product{
+  background:#1f2933;
+  padding:12px;
+  border-radius:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+.qty{display:flex;align-items:center;gap:6px;}
+.qty button{
+  width:28px;height:28px;
+  border:none;border-radius:6px;
+  background:#2563eb;color:white;font-weight:bold;cursor:pointer;
+}
+.qty span{min-width:20px;text-align:center}
+.summary{
+  background:#020617;
+  padding:12px;
+  border-radius:10px;
+  font-size:13px;
+  margin-top:14px;
+}
+button.order{
+  width:100%;
+  padding:14px;
+  margin-top:18px;
+  background:linear-gradient(135deg,#3b82f6,#2563eb);
+  border:none;
+  border-radius:12px;
+  color:#fff;
+  font-weight:bold;
+  font-size:15px;
+}
+.success{
+  display:none;
+  background:#064e3b;
+  padding:12px;
+  border-radius:10px;
+  text-align:center;
+  margin-top:14px;
+}
+.footer{text-align:center;font-size:12px;color:#6b7280;margin-top:18px}
+</style>
+</head>
+<div class="card">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <img src="https://cdn.discordapp.com/attachments/1387270553034948679/1390324398489337876/logo.png?ex=697ab8bf&is=6979673f&hm=e077a98784fec52f7095aed37455fa50a9673f7148be4f733b230fa242f3f203&" alt="Logo" style="width: 80px; height: auto;">
+    </div>
+
+<body>
+<div class="card">
+<h1>Order Loker</h1>
+<p>Pilih produk & jumlah</p>
+
+<div class="input-group">
+  <label for="customer">👤 Nama Anda</label>
+  <div class="input-wrapper">
+    <span class="icon"></span>
+    <input
+      type="text"
+      id="customer"
+      placeholder="Masukkan nama Anda"
+      autocomplete="off"
+    >
+  </div>
+</div>
+
+<label>PIC Penanggung Jawab</label>
+<select id="pic">
+  <option value="">-- Pilih PIC --</option>
+  <option value="Alexis">Alexis</option>
+  <option value="Alexis">Al</option>
+  <option value="Nori">Nori</option>
+  <option value="Hori">Hori</option>
+</select>
+
+<!-- SCROLL AREA START -->
+ <div class="search-container" style="margin-bottom: 15px;">
+    <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="🔍 Cari produk (contoh: Ammo, Vest)..." 
+        onkeyup="filterProducts()"
+        style="margin-bottom: 0;"
+    >
+</div>
+<div class="scroll-area">
+
+<!-- GROUP: LOKER -->
+<div class="group-box">
+  <div class="group-title" onclick="toggleGroup(this)">
+    🔐 Loker
+    <span>▼</span>
+  </div>
+
+  <div class="group-content">
+
+<div class="product" data-name="Pistol DE .50" data-price="10000">
+      <div>Pistol DE .50<br><small>$10,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Pistol Ceramic" data-price="27000">
+      <div>Pistol Ceramic<br><small>$27,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Micro SMG" data-price="33000">
+      <div>Micro SMG<br><small>$33,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+     <div class="product" data-name="Micro SMG" data-price="33000">
+      <div>Micro SMG<br><small>$33,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+
+    <div class="product" data-name="Vest" data-price="3000">
+      <div>Vest<br><small>$3,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Ammo .9mm / box" data-price="3000">
+      <div>Ammo .9mm / box<br><small>$3,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Ammo .44mm / box" data-price="5500">
+      <div>Ammo .44mm / box<br><small>$5,500</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Ammo .45mm / box" data-price="5500">
+      <div>Ammo .45mm / box<br><small>$5,500</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- GROUP: DRUGS -->
+<div class="group-box">
+  <div class="group-title" onclick="toggleGroup(this)">
+    💊 Dr*gs
+    <span>▼</span>
+  </div>
+
+  <div class="group-content">
+
+    <div class="product" data-name="W*ed 1 Paket" data-price="1500">
+      <div>W*ed 1 Paket<br><small>$1,500</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="M*th 1 Paket" data-price="2000">
+      <div>M*th 1 Paket<br><small>$2,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Coca*ne 1 pcs" data-price="1000">
+      <div>Coca*ne 1 pcs<br><small>$1,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- GROUP: ATTACHMENT -->
+<div class="group-box">
+  <div class="group-title" onclick="toggleGroup(this)">
+    🔧 Attachment
+    <span>▼</span>
+  </div>
+
+  <div class="group-content">
+
+    <div class="product" data-name="Supressor" data-price="13000">
+      <div>Supressor<br><small>$13,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Tactical Supressor" data-price="13000">
+      <div>Tactical Supressor<br><small>$13,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+
+<div class="summary" id="summary">Belum ada pesanan</div>
+
+<button class="order" onclick="submitOrder()">🛒 Buat Order</button>
+
+<div class="success" id="success">✅ Order terkirim ke Discord</div>
+<div class="footer">Powered by Nocturn Noir</div>
+</div>
+
+<script>
+
+function toggleGroup(title){
+  document.querySelectorAll(".group-box").forEach(box=>{
+    if(box.contains(title)){
+      box.classList.toggle("active");
+    } else {
+      box.classList.remove("active");
+    }
+  });
+}
+
+function filterProducts() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toLowerCase();
+    const productItems = document.querySelectorAll('.product');
+    const groupBoxes = document.querySelectorAll('.group-box');
+
+    productItems.forEach(product => {
+        const productName = product.dataset.name.toLowerCase();
+        // Jika nama produk mengandung teks dari input search
+        if (productName.includes(filter)) {
+            product.style.display = "flex";
+        } else {
+            product.style.display = "none";
+        }
+    });
+
+    // Otomatis buka/tutup group-box jika sedang mencari
+    groupBoxes.forEach(box => {
+        const hasVisibleProduct = box.querySelectorAll('.product[style="display: flex;"]').length > 0;
+        
+        if (filter !== "") {
+            if (hasVisibleProduct) {
+                box.classList.add("active"); // Buka grup jika ada produk yang cocok
+                box.style.display = "block";
+            } else {
+                box.style.display = "none"; // Sembunyikan grup jika tidak ada produk cocok
+            }
+        } else {
+            // Jika search kosong, kembalikan ke tampilan normal (tertutup)
+            box.style.display = "block";
+            box.classList.remove("active");
+        }
+    });
+}
+
+function changeQty(btn, val){
+  const span = btn.parentElement.querySelector("span");
+  let qty = parseInt(span.innerText) + val;
+  if(qty < 0) qty = 0;
+  span.innerText = qty;
+  updateSummary();
+}
+
+function updateSummary(){
+  let items = [];
+  let total = 0;
+  document.querySelectorAll(".product").forEach(p=>{
+    const qty = parseInt(p.querySelector("span").innerText);
+    if(qty>0){
+      const name = p.dataset.name;
+      const price = Number(p.dataset.price);
+      const sub = qty*price;
+      total += sub;
+      items.push(`${name} x${qty} = $${sub.toLocaleString()}`);
+    }
+  });
+  document.getElementById("summary").innerHTML =
+    items.length
+    ? `<b>Ringkasan:</b><br>${items.join("<br>")}<hr><b>Total:</b> $${total.toLocaleString()}`
+    : "Belum ada pesanan";
+}
+
+function submitOrder(){
+  const customer = document.getElementById("customer").value;
+  const pic = document.getElementById("pic").value;
+
+  if(!customer){
+    alert("Nama Anda wajib diisi");
+    return;
+  }
+
+  if(!pic){
+    alert("PIC wajib dipilih");
+    return;
+  }
+
+  let items = [];
+  let total = 0;
+
+  document.querySelectorAll(".product").forEach(p=>{
+    const qty = parseInt(p.querySelector("span").innerText);
+    if(qty>0){
+      const price = Number(p.dataset.price);
+      items.push({
+        name: p.dataset.name,
+        qty,
+        price
+      });
+      total += qty * price;
+    }
+  });
+
+  if(items.length === 0){
+    alert("Pilih minimal 1 produk");
+    return;
+  }
+
+  fetch("/order",{
+    method: "POST",
+    headers: { "Content-Type":"application/json" },
+    body: JSON.stringify({
+      customer,
+      pic,
+      items,
+      total
+    })
+  })
+  .then(()=>{
+    document.getElementById("success").style.display="block";
+  })
+  .catch(()=>{
+    alert("Gagal mengirim order");
+  });
+}
+</script>
+</body>
+</html>
