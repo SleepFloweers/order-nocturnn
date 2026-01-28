@@ -78,6 +78,7 @@ export default async function handler(req, res) {
       WEBHOOK_URL,
       {
         content: `🔔 ${picMention} ada order baru!`,
+        embeds: [embed],
       },
       { timeout: 5000 }
     );
