@@ -73,7 +73,17 @@ export default async function handler(req, res) {
 
     /* ===== DISCORD ===== */
     const picMention = PIC_MENTIONS[pic] || pic;
-
+    const embed = {
+      title: "🛒 ORDER BARU MASUK",
+      color: 0x3b82f6,
+      fields: [
+        { name: "👤 Customer", value: `**${customer}**`, inline: true },
+        { name: "🧑‍💼 PIC", value: picMention, inline: true },
+        { name: "📦 Detail Pesanan", value: " ", inline: false },
+        ...fields,
+        { name: "💰 TOTAL", value: `**$${total.toLocaleString()}**`, inline: false },
+      ],
+    };
     await axios.post(
       WEBHOOK_URL,
       {
