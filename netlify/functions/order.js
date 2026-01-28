@@ -17,13 +17,15 @@ const PIC_MENTIONS = {
   Hori: "<@862358953593274398>"
 };
 
-/* =====================
-   GOOGLE SHEETS SETUP
-===================== */
+
 const auth = new google.auth.GoogleAuth({
-  keyFile: path.resolve("serviceaccount.json"),
+  credentials: {
+    client_email: process.env.GCP_CLIENT_EMAIL,
+    private_key: process.env.GCP_PRIVATE_KEY.replace(/\\n/g, "\n"),
+  },
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
+
  
 const sheets = google.sheets({ version: "v4", auth });
 
