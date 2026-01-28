@@ -6,7 +6,7 @@ const GCP_PRIVATE_KEY = `-----BEGIN PRIVATE KEY-----
 PASTE KEY ASLI DI SINI
 -----END PRIVATE KEY-----`;
 
-const WEBHOOK_URL = "https://discord.com/api/webhooks/XXX";
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1466090959438876768/0y68MWxLQqABnMP3-eRD3CWhsrvwqDArgspJCNFVtEc80znRxYTFCKI3SEFAdZQUtQq4";
 const SPREADSHEET_ID = "12fI4mHy1gHC-Gh_4O23f7QfMgGtF8P2RJRI0AK8zRic";
 
 const PIC_MENTIONS = {
