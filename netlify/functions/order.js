@@ -21,7 +21,7 @@ const PIC_MENTIONS = {
    GOOGLE SHEETS SETUP
 ===================== */
 const auth = new google.auth.GoogleAuth({
-  keyFile: path.join(__dirname, "serviceaccount.json"),
+  keyFile: path.resolve("serviceaccount.json"),
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
  
