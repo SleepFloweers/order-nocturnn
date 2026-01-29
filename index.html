@@ -544,7 +544,7 @@ function updateSummary(){
 
 function submitOrder(){
   if(orderLocked) {
-    alert("⏳ Mohon tunggu 10 detik sebelum membuat order lagi");
+    alert("⏳ Mohon tunggu 5 detik sebelum membuat order lagi");
     return;
   }
 
@@ -604,10 +604,10 @@ function submitOrder(){
     document.getElementById("success").style.display="block";
     alert("✅ Order berhasil dikirim!");
 
-    // 🔄 REFRESH PAGE SETELAH 3 DETIK
+    // 🔄 REFRESH PAGE SETELAH 2 DETIK
     setTimeout(()=>{
       location.reload();
-    }, 3000);
+    }, 2000);
   })
   .catch(()=>{
     alert("❌ Gagal mengirim order");
@@ -618,12 +618,12 @@ function submitOrder(){
     btn.innerText = "🛒 Buat Order";
   });
 
-  // ⏱️ BUKA LAGI SETELAH 10 DETIK (ANTI SPAM)
+  // ⏱️ BUKA LAGI SETELAH 5 DETIK (ANTI SPAM)
   setTimeout(()=>{
     orderLocked = false;
     btn.disabled = false;
     btn.innerText = "🛒 Buat Order";
-  }, 10000);
+  }, 5000);
 }
 </script>
 
