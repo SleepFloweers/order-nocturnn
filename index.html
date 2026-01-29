@@ -588,7 +588,7 @@ function submitOrder(){
   btn.disabled = true;
   btn.innerText = "⏳ Mengirim Order...";
 
-  alert("📦 Order sedang diproses, mohon tunggu... Silahkan Klik OK ");
+  alert("📦 Order sedang diproses, mohon tunggu 3 detik lalu Silahkan Klik OK ");
 
   fetch("/api/order",{
     method: "POST",
