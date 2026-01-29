@@ -163,7 +163,7 @@ button.order{
     <input
       type="text"
       id="customer"
-      placeholder="Masukkan nama Anda"
+      placeholder="Masukkan Nama Anda"
       autocomplete="off"
     >
   </div>
@@ -172,9 +172,9 @@ button.order{
 <label>PIC Penanggung Jawab</label>
 <select id="pic">
   <option value="">-- Pilih PIC --</option>
+  <option value="Nori">Nori</option>
   <option value="Alexis">Alexis</option>
   <option value="Alexis">Al</option>
-  <option value="Nori">Nori</option>
   <option value="Hori">Hori</option>
   <option value="Raven">Raven</option>
   <option value="Arthur">Arthur</option>
@@ -229,8 +229,8 @@ button.order{
       </div>
     </div>
 
-     <div class="product" data-name="Micro SMG" data-price="33000">
-      <div>Micro SMG<br><small>$33,000</small></div>
+     <div class="product" data-name="X17 (Ap Pistol)" data-price="32500">
+      <div>X17 (Ap Pistol)<br><small>$32,500</small></div>
       <div class="qty">
         <button onclick="changeQty(this,-1)">-</button>
         <span>0</span>
@@ -238,6 +238,14 @@ button.order{
       </div>
     </div>
 
+     <div class="product" data-name="SMG" data-price="39000">
+      <div>SMG<br><small>$39,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
 
     <div class="product" data-name="Vest" data-price="3000">
       <div>Vest<br><small>$3,000</small></div>
@@ -268,6 +276,24 @@ button.order{
 
     <div class="product" data-name="Ammo .45mm / box" data-price="5500">
       <div>Ammo .45mm / box<br><small>$5,500</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+     <div class="product" data-name="Ammo Rifle" data-price="6000">
+      <div>Ammo Rifle<br><small>$6,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Lockpick" data-price="2000">
+      <div>Lockpick<br><small>$2,000</small></div>
       <div class="qty">
         <button onclick="changeQty(this,-1)">-</button>
         <span>0</span>
@@ -339,6 +365,78 @@ button.order{
 
     <div class="product" data-name="Tactical Supressor" data-price="13000">
       <div>Tactical Supressor<br><small>$13,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Tactical Flashlight" data-price="5400">
+      <div>Tactical Flashlight<br><small>$5,400</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+    
+    <div class="product" data-name="Grip" data-price="5400">
+      <div>Grip<br><small>$5,400</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Extended SMG Clip" data-price="8000">
+      <div>Extended SMG Clip<br><small>$8,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Extended Rifle Clip" data-price="21000">
+      <div>Extended Rifle Clip<br><small>$21,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="SMG Drum" data-price="14500">
+      <div>SMG Drum<br><small>$14,500</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Rifle Drum" data-price="27500">
+      <div>Rifle Drum<br><small>$26,000</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Macro Scope" data-price="5400">
+      <div>Macro Scope<br><small>$5,400</small></div>
+      <div class="qty">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="Medium Scope" data-price="5400">
+      <div>Medium Scope<br><small>$5,400</small></div>
       <div class="qty">
         <button onclick="changeQty(this,-1)">-</button>
         <span>0</span>
