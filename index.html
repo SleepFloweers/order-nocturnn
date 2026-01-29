@@ -544,7 +544,7 @@ function updateSummary(){
 
 function submitOrder(){
   if(orderLocked) {
-    alert("⏳ Mohon tunggu 5 detik sebelum membuat order lagi");
+    alert("⏳ Mohon tunggu 3 detik sebelum membuat order lagi");
     return;
   }
 
@@ -588,7 +588,7 @@ function submitOrder(){
   btn.disabled = true;
   btn.innerText = "⏳ Mengirim Order...";
 
-  alert("📦 Order sedang diproses, mohon tunggu...");
+  alert("📦 Order sedang diproses, mohon tunggu... Silahkan Klik OK");
 
   fetch("/api/order",{
     method: "POST",
@@ -604,10 +604,10 @@ function submitOrder(){
     document.getElementById("success").style.display="block";
     alert("✅ Order berhasil dikirim!");
 
-    // 🔄 REFRESH PAGE SETELAH 2 DETIK
+    // 🔄 REFRESH PAGE SETELAH 1 DETIK
     setTimeout(()=>{
       location.reload();
-    }, 2000);
+    }, 1000);
   })
   .catch(()=>{
     alert("❌ Gagal mengirim order");
@@ -618,12 +618,12 @@ function submitOrder(){
     btn.innerText = "🛒 Buat Order";
   });
 
-  // ⏱️ BUKA LAGI SETELAH 5 DETIK (ANTI SPAM)
+  // ⏱️ BUKA LAGI SETELAH 3 DETIK (ANTI SPAM)
   setTimeout(()=>{
     orderLocked = false;
     btn.disabled = false;
     btn.innerText = "🛒 Buat Order";
-  }, 5000);
+  }, 3000);
 }
 </script>
 
