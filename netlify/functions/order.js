@@ -1,9 +1,37 @@
 const axios = require("axios");
 const { google } = require("googleapis");
 const path = require("path");
-const GCP_CLIENT_EMAIL = "test-2@nocturn-noir.iam.gserviceaccount.com";
+const GCP_CLIENT_EMAIL = "test-vabget-ini@nocturn-noir.iam.gserviceaccount.com";
 
-const GCP_PRIVATE_KEY = `-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDUgZ392GmKvxD1\n2JGWLtAelzd8+a/Ek0TpyaTUGUqT8iQOOm4C3XPtrJTo998ea6/eKM2LoL6IjMJ2\n9Ro2d0lIwa50pXUoUK5wyveCJorPPEeUiZpmCtq/6+rlDRk6goRM2lyBkvJs+Qgi\nVSA6nx74/KQB32JMNflU6qql28kg0iQ2hWQv2Zbx3h4lEmwObKp3LgUblKhZ9U+R\nc2TPNHWxamb+UjcjRqG+DT2c7OujVz/XlkEMDi8QoDBE6yPRKGFQbm9e68xwfSFU\nfLiY1srK4iFmP5lVSsvypS15gkiMNe8FJpAxDFRjLauGqRKDbFyOMfriTFO0jnT0\ngH1MOfVJAgMBAAECggEAPgN5TJu76P5q/6NskOwmVdcBHVpr/ayQXr02eaLLzbLK\n7NAGTJW9f+1uIzI6jVEVqHo1yXpmP8j78uUB+kUDQNUsiOPD9bjdvxKr+fIvbdyE\ncwdY5FBkl79L8/3Hj/iIjTjn5/QvBLgDtKks146Z5kUrw1QiBmV11l8I34/s+MNx\nxsmJefoXWg39PFHrU6S2q+1fSy7I/pM3rr9UA08gTL13vzBn5OWKxuFi4UjsTs/d\n5vkuXmHkgmMDcufu2QS1rvDjHHvD6Vz6Dh6ZqNqAV/Mv+DoWNSUag6CJ0AyJlla6\nLpqap+NtBQRB6rNxrpNsGAQRLf8Ir064VwO4VS8WpQKBgQD7KotxsFLSBhPfgN40\n89M1e22RoVFPvVu1gp1CC5IzK6b4hsS8u7MCACc3De+Z7bBcI5DNrmU43uRFjFpy\n9VuDOV9hN7hQlvP6ZA1fJOHKqhGc4+ykc2XQJyEDKB25Blc1EXzoh8xa+SHsXe4w\n22LvCQUXUewBqnILhjNi3OReNwKBgQDYmJn7cj2EyeEyeEHEJ2+K2NCQfXzqUqDT\nmmvskhd/EUV+OfoMPKSkOGbManMNGTLMv774hLqosBLs9Rpuo/z3UDHDdNbgdFCv\nmufL07cySpxXbyRGbKwjsA/I6pK7heta/WIvhMJ1YszxOM0iY5TUgNmB3Imej35H\nYaM4wS6IfwKBgAH0XM1vr9VOks0EdbY3x4b9BOdDOBzEvnf1IkAnUuXvCweYFOPb\nGhOD6Mo244xxGxQ8ep3/I26D3YblBrcqTaIByko5YsfNxOxH5wq8gL1RAX4VD/xf\noYUzKMCbiU+tSvRwxGYS2HZExgzO1lGvA2AU0+NQkeOZbfXE/5VfXq+VAoGAbCyS\nwuUEWnxk70rmNawoZiTwzSkPKQxJbEU0X3t7Jqgel/MmsdPbunS8ypzjhwgtudqN\n6xqHCtadLSEgqV9XaMDxiZeh9YnB/mIUIFVFqmVe/b/xUwbVViGJUKPu0p8Is3HX\nBrp8UBofFt5yfRlU7GjJuLTHOpyZyda2qRK6RcsCgYBQrmIbgu5v7VRtt92/BGTc\nttS0JA5W5Khe3N8A5DqZ8ClqDiZ/Ae3VybCUOKYxdx3HWpnnf90cIUy8ggfTTD9S\nNb046rBTbeQLB3JcnZPuyn55JLoeF2xLZUvG6ePcuOmqx5NSael6TWaKonu4fcH6\nFxJIFNtsuMu0w/yY3YrKpQ==\n-----END PRIVATE KEY-----\n`;
+const GCP_PRIVATE_KEY = `-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCvj2uy/sb9iLIL
+ME9Iwtmt8DWW0s8EN8kQ2w/61MiyoU66BPojL65fmnM5xSLQ/+IIEfPruWE5GlBw
+b5dDdDKGO63mSHPyvrLisypJkKGbuUI6wV0SF7wsxKo91z/jfUIs1VUqZ4sno2UL
+51Q/e2da2tJ82zdtUK54uY1fNpjql0VMkVB7uuWabZ1q/blFPIBG+YQPJRLvP7PN
+jk7oX/ERrcRHX7B3O21wAkqKihYwhlowFWbCEzZpbXyAuGdP77WhNRI/hw0DAJnr
+IDpELWboRyIvpe9pGujd2NMhQI+QbJUM0nitf7OkYD3dEdhsbxsnJBcU5SYH0hUR
+99w6sJYRAgMBAAECggEAFW6EPss0fqHv3kbM/vxud3nyCNH+XKz0uj6L4lqUj536
+juHpqV76QgiIVX6X4/zA2qxaYyXz1PU96aPtytnGCzYA4jJpGTKngt5NZMKnv+tr
+RuHxGzLTkYGGqNr8nShe6js21ODkD3g2bzATzFYjxWceOAjI6OrnCazZMczn+Qc/
+Ud2hvrCdsT9/VaP/RMdd99mXjL5qgicJg4MnywYYHySGKkUCZJW3k1VPuSnZdFYF
+THh5i+Yzix+yWWswP01L8lEGZJRnsEOz9OIxtGx5jD76FW9ZuoqG7y44temuM2op
+Br67KTqFM2a6XkHP53Xf6rbeqaPeaV0xoN+Q2QNZIQKBgQDv5PxYnY5/Yk/igQ+s
+3P1AQCsAa/hUIZCL6OXPHjTJwXZ5ZFVfNuaz6txAwlnSqwc8LG1TCmubbZGSJM3m
+qg081FxuZDb+/ILodFJvfR1J2ywhYwrDQ+Bojklozelo82i1ZyfnPJnXN5L1RRo6
+4Ravve3bMQRDZU/EbDjXLSqsqQKBgQC7WLyDpA2zc2LoPArJG0mcC7+bOaV/acj0
+93/mYrTmelIY1SXIUBYhp+8coS4+fenwMYRVr3B1bHv8f4tqSBz0zgf1WizdSXdd
+1aQgvIeklnCqzrRA7nzdqIaSRVATXQ46E5ZQ/5I4dCnovnywn1XQz07soXtKPKPZ
+Y4Uk77HXKQKBgHg4Tgnus3m9AAGn4f4kJTosriAg+6rVw0WKKpi4L4YoUMIW+P2l
+WsoxWb2OaEs98HtEXGkwIKscpsYRcao18DpaxhOAX1s7mjL6EFHU5nebwardoogm
+nPBo1fsSrfUtfnziPEoSwZnsPNZzkeiN4ruht/CPyO4peGccQQP8m5U5AoGBAK+5
+MMEM/KjoPspznu45ARcz0dnn/TqAX7Sd/UJ8LQ/Nhfmy24iCze9tlBM3f6ev9OCN
+oYG5V/Nb+QPCImNjFn3sTnysw04gXa0O+a6XB2eykCU2Us5go5BJRUgnaU9wRirl
+OmXpAh6fnrunCE+mdBiyimXbpUfhjxIVjcoyZY3ZAoGAdwO6Y9NguMkQ7+NITNOE
+GyExbRE0eyR4bT9sAmqFEER3Y1qG17BccHpcLlHkDeSHVweUDylkqt3EGzQHioL2
+lAqi6OsmZq3JCqITX+7KpLMkZIjvkpPi12Rg+8/TomlH2wuvhG+Ssb1CvC/2agDa
+jeN8S2QLPykxmpOHMqWaE8A=
+-----END PRIVATE KEY-----
+`;
 /* =====================
    CONFIG
 ===================== */
@@ -27,7 +55,9 @@ const PIC_MENTIONS = {
 const auth = new google.auth.GoogleAuth({
   credentials: {
     client_email: GCP_CLIENT_EMAIL,
-    private_key: GCP_PRIVATE_KEY.replace(/\\n/g, "\n"),
+    private_key: GCP_PRIVATE_KEY.replace(/\
+/g, "
+"),
   },
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
