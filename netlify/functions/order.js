@@ -55,9 +55,7 @@ const PIC_MENTIONS = {
 const auth = new google.auth.GoogleAuth({
   credentials: {
     client_email: GCP_CLIENT_EMAIL,
-    private_key: GCP_PRIVATE_KEY.replace(/\
-/g, "
-"),
+    private_key: GCP_PRIVATE_KEY.replace(/\\n/g, "\n"),
   },
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
