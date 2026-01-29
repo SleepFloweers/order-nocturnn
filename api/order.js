@@ -163,19 +163,10 @@ export default async function handler(req, res) {
     const sheetSuccess =
       appendResult.data?.updates?.updatedRows > 0;
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        success: true,
-        discord: "Y",
-        spreadsheet: sheetSuccess ? "Y" : "N"
-      }),
-    };
-
     return res.status(200).json({
       success: true,
       discord: "Y",
-      spreadsheet: "Y",
+      spreadsheet: sheetSuccess ? "Y" : "N",
     });
 
   } catch (error) {
