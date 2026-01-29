@@ -149,12 +149,28 @@ export default async function handler(req, res) {
       total,
     ]);
 
-    await sheets.spreadsheets.values.append({
+    const appendResult = await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
-      range: "Sheet1!A:H",
+      range: "Sheet1!A:I",
       valueInputOption: "USER_ENTERED",
-      requestBody: { values: rows },
+      requestBody: {
+        values: rows,
+      },
     });
+
+    console.log("SHEET RESULT:", appendResult.data);
+
+    const sheetSuccess =
+      appendResult.data?.updates?.updatedRows > 0;
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        success: true,
+        discord: "Y",
+        spreadsheet: sheetSuccess ? "Y" : "N"
+      }),
+    };
 
     return res.status(200).json({
       success: true,
